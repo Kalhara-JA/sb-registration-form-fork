@@ -296,7 +296,7 @@ const RegisterForm = () => {
   return (
     <div>
       {showModal && <Modals fn={saveData} />}
-      <form onSubmit={submitForm}>
+      <form onSubmit={submitForm} style={{ paddingRight: 3, paddingLeft: 3 }}>
         <Grid
           container
           direction="column"
@@ -537,6 +537,7 @@ const RegisterForm = () => {
                 display: "flex",
                 alignItems: "center",
                 gap: 0,
+                color: "white"
               }}
             >
               <FormControlLabel

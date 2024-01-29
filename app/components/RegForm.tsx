@@ -52,8 +52,20 @@ const RegForm = () => {
           }}
         >
           <Grid item>
-            <Typography variant="h4" mt={4} component="h2">
-              <div className={style.formFont} style={{ textAlign: "center" }}>
+            <Typography variant="h4" mt={4} component="h2"
+              sx={{
+                typography: {
+                  fontSize: 20,
+                  md: { fontSize: 30 },
+                  lg: { fontSize: 40 },
+                  fontFamily: "Amenti Regular",
+                  color: "#fff",
+                },
+              }}
+            >
+              <div className={style.formFont} style={{
+                textAlign: "center", color: 'white',
+              }}>
                 <p>Application for Membership of IEEE Student Branch</p>
                 <p>University of Moratuwa</p>
                 <p>Term '23/24</p>
@@ -70,9 +82,14 @@ const RegForm = () => {
               <Typography
                 sx={{
                   typography: {
+                    padding: 5,
+                    fontSize: 10,
+                    textAlign: "justify",
+                    textAlignLast: "center",
                     md: { fontSize: 11 },
                     lg: { fontSize: 14, padding: 5 },
                     fontFamily: "Amenti Regular",
+                    color: "#fff",
                   },
                 }}
               >
@@ -90,7 +107,7 @@ const RegForm = () => {
                   have the best volunteering experience.
                 </>
                 With great pleasure we open Applications for Membership of IEEE
-                Student Branch for term 22/23.
+                Student Branch for term 23/24.
                 <> Trust the magic of new beginnings.</>
               </Typography>
             </div>
