@@ -1,7 +1,10 @@
 "use client";
 
+import { db } from "@/services/firebase";
+import { onValue, ref, set } from "@firebase/database";
 import { useContext, useEffect, useState } from "react";
 import React, { ReactChildren, ReactChild } from "react";
+import { successMessage } from "./helper";
 const { createContext } = require("react");
 
 const registerContext = createContext();
@@ -23,19 +26,8 @@ function RegisterProvider({ children }: Props) {
   const [checked, setChecked] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [checkUserExist, setCheckUserExist] = useState(false);
-  const [randomNumber, setRandomNumber] = useState(0);
-  const [firstInput, setFirstInput] = useState("");
-  const [secondInput, setSecondInput] = useState("");
-  const [thiredInput, setThiredInput] = useState("");
-  const [fouthInput, setFouthInput] = useState("");
-  const [enterPinButton, setEnterPinButton] = useState(false);
-  const [otp, setOtp] = useState("");
 
-  function checkPIN() {
-    const input = Number(otp);
-    if (input == randomNumber) return true;
-    return false;
-  }
+  const [enterPinButton, setEnterPinButton] = useState(false);
 
   useEffect(function () {
     const name: any = localStorage.getItem("name");
@@ -116,53 +108,61 @@ function RegisterProvider({ children }: Props) {
     setChecked(false);
     setPreviousExperience("");
   }
-  function clearPIN() {
-    setFirstInput("");
-    setSecondInput("");
-    setThiredInput("");
-    setFouthInput("");
-  }
 
-  function sendOTP() {
-    const random = Math.floor(Math.random() * 1000 + 1000);
-    setRandomNumber(random);
-
-    fetch("http://localhost:3000/api/email", {
-      method: "POST",
-      body: JSON.stringify({
-        email: gmail,
-        code: random,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
+  async function saveData() {
+    const starCountRef = ref(db, "user/");
+    // const check = checkPIN();
+    // if (!check) {
+    //   warningMessage("Your pin number is wrong");
+    //   return;
+    // }
+    let id = 0;
+    // const starCountRef = ref(db, "user/");
+    onValue(starCountRef, (snapshot) => {
+      console.log([snapshot.val()]);
+      id = Object.keys(snapshot.val()).length;
     });
 
-    setShowModal(true);
-    setEnterPinButton(true);
+    // const querySnapshot = await getDocs(collection(db, "user"));
+    // const id = querySnapshot.docs.length + 1;
+    const registerId = `SB-${id + 1}`;
+
+    const storeData = {
+      name,
+      index,
+      telephone: mobileNumber,
+      gmail,
+      uomMail,
+      batch,
+      faculty,
+      department,
+      previousExperience,
+      registerId,
+    };
+
+    set(ref(db, "user/" + index), storeData);
+
+    successMessage("Data save successfully");
+    localStorage.clear();
+    clearForm();
+    setEnterPinButton(false);
+
+    setShowModal(false);
+
+    return true;
   }
 
   return (
     <registerContext.Provider
       value={{
-        setOtp,
-        otp,
-        sendOTP,
+        saveData,
+
         previousExperience,
         handlePreviousExperions,
-        clearPIN,
+
         enterPinButton,
         setEnterPinButton,
-        checkPIN,
-        firstInput,
-        setFirstInput,
-        secondInput,
-        setSecondInput,
-        thiredInput,
-        setThiredInput,
-        fouthInput,
-        setFouthInput,
-        setRandomNumber,
+
         checkUserExist,
         setCheckUserExist,
         clearForm,
