@@ -45,7 +45,7 @@ export default function Modals({ fn }: modalProps) {
             variant="h6"
             component="h2"
           >
-            Are you sure want to registration ?
+            Completion of Registration
           </Typography>
           <Typography
             id="modal-modal-description"
