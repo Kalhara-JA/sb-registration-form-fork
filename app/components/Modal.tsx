@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import { useRegister } from "../RegisterContext";
 
 import { useRegister } from "./RegisterContext";
 import { Box, Button, Grid, Typography } from "@mui/material";
@@ -11,7 +10,8 @@ interface modalProps {
 }
 
 export default function Modals({ fn }: modalProps) {
-  const { setShowModal, showModal, setOtp, otp, sendOTP }: any = useRegister();
+  const { setShowModal, showModal, setOtp, otp, sendOTP, saveData }: any =
+    useRegister();
 
   const style = {
     position: "absolute" as "absolute",
@@ -30,10 +30,6 @@ export default function Modals({ fn }: modalProps) {
     setShowModal(false);
   }
 
-  function handleChang(newValue: any) {
-    setOtp(newValue);
-  }
-
   return (
     <div>
       <Modal
@@ -43,18 +39,22 @@ export default function Modals({ fn }: modalProps) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Email verification
+          <Typography
+            sx={{ color: "white", fontFamily: "Amenti Medium" }}
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+          >
+            Are you sure want to registration ?
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2, mb: 3 }}>
-            Your code was sent to your uom email
+          <Typography
+            id="modal-modal-description"
+            sx={{ mt: 2, mb: 3, color: "white", fontFamily: "Amenti Medium" }}
+          >
+            Please confirm that you want to complete the registration process by
+            clicking 'Confirm' below.
           </Typography>
-          <MuiOtpInput
-            TextFieldsProps={{ placeholder: "-" }}
-            autoFocus
-            value={otp}
-            onChange={handleChang}
-          />
+
           <Typography
             sx={{
               mt: 2,
@@ -64,9 +64,11 @@ export default function Modals({ fn }: modalProps) {
               alignItems: "center",
             }}
           >
-            <Button variant="outlined">Resend</Button>
-            <Button onClick={() => fn()} variant="contained">
-              Verify
+            <Button onClick={handleClose} variant="outlined">
+              Close
+            </Button>
+            <Button onClick={() => saveData()} variant="contained">
+              Confirm
             </Button>
           </Typography>
         </Box>

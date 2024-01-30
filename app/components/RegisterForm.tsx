@@ -8,28 +8,13 @@ import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { ToastContainer } from "react-toastify";
-import { setDoc, doc, getDocs, collection } from "firebase/firestore";
-import {
-  createUserWithEmailAndPassword,
-  getAuth,
-  sendSignInLinkToEmail,
-  sendEmailVerification,
-} from "firebase/auth";
 
 import "react-toastify/dist/ReactToastify.css";
-import {
-  Box,
-  Button,
-  Grid,
-  Typography,
-  styled,
-  withStyles,
-} from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { useRegister } from "./RegisterContext";
 import { registration, successMessage, warningMessage } from "./helper";
-import { auth, db } from "@/services/firebase";
-import { useState } from "react";
-import Modal from "./Modal";
+import { db } from "@/services/firebase";
+
 import Modals from "./Modal";
 import { gsap } from "gsap";
 import { set, getDatabase, onValue, ref } from "firebase/database";
@@ -120,12 +105,9 @@ const RegisterForm = () => {
     setShowModal,
     clearForm,
     clearPIN,
-    setRandomNumber,
-    checkPIN,
-    enterPinButton,
+
     setEnterPinButton,
-    sendOTP,
-    setOtp,
+
     previousExperience,
     handlePreviousExperions,
   }: any = useRegister();
@@ -171,51 +153,20 @@ const RegisterForm = () => {
       }
     }
 
-    try {
-      let checkUser = false;
-
-      onValue(starCountRef, (snapshot) => {
-        const id = snapshot.val();
-      });
-
-      // const querySnapshot = await getDocs(collection(db, "user"));
-      // querySnapshot.forEach((doc) => {
-      //   const user = Object.values(doc.data()).includes(uomMail);
-      //   if (user === true) {
-      //     warningMessage("This email address already registered to the system");
-      //     checkUser = true;
-      //   }
-      // });
-
-      if (checkUser) return;
-      if (!checked) {
-        warningMessage("Confirm your details");
-        return;
-      }
-
-      createUserWithEmailAndPassword(auth, gmail, index)
-        .then((userCredential) => {
-          sendEmailVerification(auth.currentUser!).then((d) => console.log(d));
-          router.push("/register");
-        })
-        .catch((error) => {
-          if (error.code === "auth/email-already-in-use") {
-            warningMessage(
-              "Your email address already registered to the system"
-            );
-          }
-        });
-    } catch (e) {
-      console.log(e);
+    if (!checked) {
+      warningMessage("Confirm your details");
+      return;
     }
+
+    setShowModal(true);
   }
 
   async function saveData() {
-    const check = checkPIN();
-    if (!check) {
-      warningMessage("Your pin number is wrong");
-      return;
-    }
+    // const check = checkPIN();
+    // if (!check) {
+    //   warningMessage("Your pin number is wrong");
+    //   return;
+    // }
     let id = 0;
     // const starCountRef = ref(db, "user/");
     onValue(starCountRef, (snapshot) => {
@@ -246,9 +197,9 @@ const RegisterForm = () => {
     localStorage.clear();
     clearForm();
     setEnterPinButton(false);
-    clearPIN();
+
     setShowModal(false);
-    setOtp("");
+
     return true;
   }
   const style = {
@@ -537,7 +488,7 @@ const RegisterForm = () => {
                 display: "flex",
                 alignItems: "center",
                 gap: 0,
-                color: "white"
+                color: "white",
               }}
             >
               <FormControlLabel
