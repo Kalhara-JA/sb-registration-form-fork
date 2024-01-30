@@ -8,6 +8,7 @@ import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { ToastContainer } from "react-toastify";
+import toast from "react-hot-toast";
 
 import "react-toastify/dist/ReactToastify.css";
 import { Button, Grid } from "@mui/material";
@@ -123,7 +124,8 @@ const RegisterForm = () => {
       uomMail,
     };
     if (!batch || !faculty || !department) {
-      warningMessage("Fill the form");
+      // warningMessage("Fill the form");
+      toast.error('Fill the form')
       return;
     }
 
@@ -136,25 +138,31 @@ const RegisterForm = () => {
       const indexError = formatedError.index?._errors || "";
       const uomMailError = formatedError.uomMail?._errors || "";
       if (nameError) {
-        warningMessage(nameError[0]);
+        // warningMessage(nameError[0]);
+        toast.error(nameError[0])
         return;
       } else if (telephoneError) {
-        warningMessage(telephoneError[0]);
+        // warningMessage(telephoneError[0]);
+        toast.error(telephoneError[0])
         return;
       } else if (gmailError) {
-        warningMessage(gmailError[0]);
+        // warningMessage(gmailError[0]);
+        toast.error(gmailError[0])
         return;
       } else if (indexError) {
-        warningMessage(indexError[0]);
+        // warningMessage(indexError[0]);
+        toast.error(indexError[0])
         return;
       } else if (uomMailError) {
-        warningMessage(uomMailError[0]);
+        // warningMessage(uomMailError[0]);
+        toast.error(uomMailError[0])
         return;
       }
     }
 
     if (!checked) {
-      warningMessage("Confirm your details");
+      // warningMessage("Confirm your details");
+      toast.error("Confirm your details")
       return;
     }
 
@@ -170,7 +178,6 @@ const RegisterForm = () => {
     let id = 0;
     // const starCountRef = ref(db, "user/");
     onValue(starCountRef, (snapshot) => {
-      console.log([snapshot.val()]);
       id = Object.keys(snapshot.val()).length;
     });
 
@@ -193,7 +200,8 @@ const RegisterForm = () => {
 
     set(ref(db, "user/" + index), storeData);
 
-    successMessage("Data send successfully");
+    // successMessage("Data send successfully");
+    toast.success('Form Submitted Successfully')
     localStorage.clear();
     clearForm();
     setEnterPinButton(false);
