@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from "react";
 import React, { ReactChildren, ReactChild } from "react";
 import { successMessage } from "./helper";
 const { createContext } = require("react");
+import toast from "react-hot-toast";
 
 const registerContext = createContext();
 
@@ -23,7 +24,7 @@ function RegisterProvider({ children }: Props) {
   const [faculty, setFaculty] = useState("");
   const [previousExperience, setPreviousExperience] = useState("");
   const [department, setDepartment] = useState("");
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [checkUserExist, setCheckUserExist] = useState(false);
 
@@ -38,7 +39,6 @@ function RegisterProvider({ children }: Props) {
     const batch: any = localStorage.getItem("batch");
     const faculty: any = localStorage.getItem("faculty");
     const department: any = localStorage.getItem("department");
-    const checked: any = localStorage.getItem("checked");
     const previosEx: any = localStorage.getItem("previousEx");
 
     setName(name);
@@ -49,7 +49,6 @@ function RegisterProvider({ children }: Props) {
     setBatch(batch);
     setFaculty(faculty);
     setDepartment(department);
-    setChecked(checked);
     setPreviousExperience(previosEx);
   }, []);
 
@@ -93,7 +92,7 @@ function RegisterProvider({ children }: Props) {
   }
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setChecked(e.target.checked);
-    localStorage.setItem("checked", e.target.value);
+    // localStorage.setItem("checked", e.target.value);
   }
 
   function clearForm() {
@@ -142,7 +141,9 @@ function RegisterProvider({ children }: Props) {
 
     set(ref(db, "user/" + index), storeData);
 
-    successMessage("Data save successfully");
+    // successMessage("Data save successfully");
+    toast.success("Form Submitted successfully");
+
     localStorage.clear();
     clearForm();
     setEnterPinButton(false);
