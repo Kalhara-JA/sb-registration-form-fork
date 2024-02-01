@@ -8,7 +8,7 @@ import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { ToastContainer } from "react-toastify";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 import "react-toastify/dist/ReactToastify.css";
 import { Button, Grid } from "@mui/material";
@@ -548,9 +548,16 @@ const RegisterForm = () => {
         </Grid>
         <Grid
           item
-          sx={{ width: "100%", display: "flex", justifyContent: "center" }}
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+
+            flexDirection: "column",
+          }}
         >
-          <div id="buttton">
+          <div id="buttton  ">
             <Button
               type="submit"
               sx={{
@@ -566,6 +573,13 @@ const RegisterForm = () => {
               Save details
             </Button>
           </div>
+          <Toaster
+            containerStyle={{
+              position: "relative",
+              width: "300px",
+              height: "70px",
+            }}
+          />
         </Grid>
       </form>
       <ToastContainer />

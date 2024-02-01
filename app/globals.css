@@ -91,27 +91,27 @@ a {
 @media (min-width: 768px) and (max-width: 1023px) {
   /* Medium devices (tablets, etc.) */
   body {
-    height: 1000px;
+    height: 1050px;
   }
 }
 
 @media (min-width: 1024px) and (max-width: 1279px) {
   /* Large devices (laptops, etc.) */
   body {
-    height: 1100px;
+    height: 1150px;
   }
 }
 
 @media (min-width: 1280px) {
   /* Extra large devices (large laptops, etc.) */
   body {
-    height: 1100px;
+    height: 1150px;
   }
 }
 
 @media (max-width: 767px) {
   /* Small devices (landscape phones, etc.) */
   body {
-    height: 1100px;
+    height: 1150px;
   }
 }
