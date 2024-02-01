@@ -93,7 +93,7 @@ function RegisterProvider({ children }: Props) {
     setDepartment(e.target.value);
     localStorage.setItem("department", e.target.value);
   }
-  function handleVolanteerId(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleVolunteerId(e: React.ChangeEvent<HTMLInputElement>) {
     setVolunteerId(e.target.value);
     localStorage.setItem("volanteerId", e.target.value);
   }
@@ -145,8 +145,9 @@ function RegisterProvider({ children }: Props) {
       department,
       previousExperience,
       registerId,
+      volunteerId,
     };
-
+    console.log(storeData)
     set(ref(db, "user/" + index), storeData);
 
     // successMessage("Data save successfully");
@@ -171,7 +172,7 @@ function RegisterProvider({ children }: Props) {
         enterPinButton,
         setEnterPinButton,
         volunteerId,
-        handleVolanteerId,
+        handleVolunteerId,
         checkUserExist,
         setCheckUserExist,
         clearForm,

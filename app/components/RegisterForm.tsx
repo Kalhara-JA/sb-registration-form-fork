@@ -117,7 +117,7 @@ const RegisterForm = () => {
     clearForm,
     clearPIN,
     volunteerId,
-    handleVolanteerId,
+    handleVolunteerId,
     setEnterPinButton,
 
     previousExperience,
@@ -146,7 +146,6 @@ const RegisterForm = () => {
       const nameError = formatedError.name?._errors || "";
       const telephoneError = formatedError.telephone?._errors || "";
       const gmailError = formatedError.gmail?._errors || "";
-      const indexError = formatedError.index?._errors || "";
       const uomMailError = formatedError.uomMail?._errors || "";
       if (nameError) {
         // warningMessage(nameError[0]);
@@ -159,10 +158,6 @@ const RegisterForm = () => {
       } else if (gmailError) {
         // warningMessage(gmailError[0]);
         toast.error(gmailError[0]);
-        return;
-      } else if (indexError) {
-        // warningMessage(indexError[0]);
-        toast.error(indexError[0]);
         return;
       } else if (uomMailError) {
         // warningMessage(uomMailError[0]);
@@ -209,7 +204,7 @@ const RegisterForm = () => {
       registerId,
       volunteerId,
     };
-
+    console.log(storeData);
     set(ref(db, "user/" + index), storeData);
 
     toast.success("Form Submitted Successfully");
@@ -339,7 +334,7 @@ const RegisterForm = () => {
               variant="outlined"
               value={volunteerId}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                handleVolanteerId(e)
+                handleVolunteerId(e)
               }
             />
           </Grid>

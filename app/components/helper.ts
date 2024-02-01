@@ -5,9 +5,6 @@ export const registration = z.object({
   name: z
     .string()
     .regex(/^[a-zA-Z\s]*$/, { message: "Name can not enter number or symbal" }),
-  index: z.string().length(7, {
-    message: "Must be exactly 7 characters long in index number",
-  }),
   telephone: z.string().regex(/^[0-9+]+$/, { message: "Invalid phone number" }),
   gmail: z.string().email({ message: "Invalid gmail address" }),
   uomMail: z.string().email({ message: "Invalid uom mail address" }),
