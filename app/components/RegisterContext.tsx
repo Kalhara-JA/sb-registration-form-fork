@@ -21,6 +21,7 @@ function RegisterProvider({ children }: Props) {
   const [gmail, setGmail] = useState("");
   const [uomMail, setUomMail] = useState("");
   const [batch, setBatch] = useState("");
+  const [volunteerId, setVolunteerId] = useState("");
   const [faculty, setFaculty] = useState("");
   const [previousExperience, setPreviousExperience] = useState("");
   const [department, setDepartment] = useState("");
@@ -40,6 +41,7 @@ function RegisterProvider({ children }: Props) {
     const faculty: any = localStorage.getItem("faculty");
     const department: any = localStorage.getItem("department");
     const previosEx: any = localStorage.getItem("previousEx");
+    const volanteerId: any = localStorage.getItem("volanteerId");
 
     setName(name);
     setIndex(index);
@@ -50,6 +52,7 @@ function RegisterProvider({ children }: Props) {
     setFaculty(faculty);
     setDepartment(department);
     setPreviousExperience(previosEx);
+    setVolunteerId(volanteerId);
   }, []);
 
   function handleName(e: React.ChangeEvent<HTMLInputElement>) {
@@ -90,6 +93,10 @@ function RegisterProvider({ children }: Props) {
     setDepartment(e.target.value);
     localStorage.setItem("department", e.target.value);
   }
+  function handleVolanteerId(e: React.ChangeEvent<HTMLInputElement>) {
+    setVolunteerId(e.target.value);
+    localStorage.setItem("volanteerId", e.target.value);
+  }
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setChecked(e.target.checked);
     // localStorage.setItem("checked", e.target.value);
@@ -106,6 +113,7 @@ function RegisterProvider({ children }: Props) {
     setDepartment("");
     setChecked(false);
     setPreviousExperience("");
+    setVolunteerId("");
   }
 
   async function saveData() {
@@ -160,10 +168,10 @@ function RegisterProvider({ children }: Props) {
 
         previousExperience,
         handlePreviousExperions,
-
         enterPinButton,
         setEnterPinButton,
-
+        volunteerId,
+        handleVolanteerId,
         checkUserExist,
         setCheckUserExist,
         clearForm,

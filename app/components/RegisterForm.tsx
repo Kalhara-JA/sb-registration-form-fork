@@ -41,6 +41,11 @@ const RegisterForm = () => {
       { opacity: 1, duration: 1, delay: 2.1, y: -10, ease: "back" }
     );
     gsap.fromTo(
+      "#volunteer",
+      { opacity: 0 },
+      { opacity: 1, duration: 1, delay: 2.2, y: -10, ease: "back" }
+    );
+    gsap.fromTo(
       "#uomMail",
       { opacity: 0 },
       { opacity: 1, duration: 1, delay: 2.3, y: -10, ease: "back" }
@@ -81,6 +86,11 @@ const RegisterForm = () => {
       { opacity: 0 },
       { opacity: 1, duration: 1, delay: 3.5, y: -10, ease: "back" }
     );
+    gsap.fromTo(
+      "#volunteer",
+      { opacity: 0 },
+      { opacity: 1, duration: 1, delay: 3.5, y: -10, ease: "back" }
+    );
   }, []);
 
   const {
@@ -106,7 +116,8 @@ const RegisterForm = () => {
     setShowModal,
     clearForm,
     clearPIN,
-
+    volunteerId,
+    handleVolanteerId,
     setEnterPinButton,
 
     previousExperience,
@@ -125,7 +136,7 @@ const RegisterForm = () => {
     };
     if (!batch || !faculty || !department) {
       // warningMessage("Fill the form");
-      toast.error('Fill the form')
+      toast.error("Fill the form");
       return;
     }
 
@@ -139,30 +150,30 @@ const RegisterForm = () => {
       const uomMailError = formatedError.uomMail?._errors || "";
       if (nameError) {
         // warningMessage(nameError[0]);
-        toast.error(nameError[0])
+        toast.error(nameError[0]);
         return;
       } else if (telephoneError) {
         // warningMessage(telephoneError[0]);
-        toast.error(telephoneError[0])
+        toast.error(telephoneError[0]);
         return;
       } else if (gmailError) {
         // warningMessage(gmailError[0]);
-        toast.error(gmailError[0])
+        toast.error(gmailError[0]);
         return;
       } else if (indexError) {
         // warningMessage(indexError[0]);
-        toast.error(indexError[0])
+        toast.error(indexError[0]);
         return;
       } else if (uomMailError) {
         // warningMessage(uomMailError[0]);
-        toast.error(uomMailError[0])
+        toast.error(uomMailError[0]);
         return;
       }
     }
 
     if (!checked) {
       // warningMessage("Confirm your details");
-      toast.error("Confirm your details")
+      toast.error("Confirm your details");
       return;
     }
 
@@ -196,12 +207,12 @@ const RegisterForm = () => {
       department,
       previousExperience,
       registerId,
+      volunteerId,
     };
 
     set(ref(db, "user/" + index), storeData);
 
-    // successMessage("Data send successfully");
-    toast.success('Form Submitted Successfully')
+    toast.success("Form Submitted Successfully");
     localStorage.clear();
     clearForm();
     setEnterPinButton(false);
@@ -314,6 +325,24 @@ const RegisterForm = () => {
               }
             />
           </Grid>
+          <Grid id="volunteer" item sx={{ width: "100%" }}>
+            <TextField
+              sx={style}
+              fullWidth
+              InputProps={{
+                sx: { borderRadius: 4, fontFamily: "Amenti Medium" },
+              }}
+              id="volunteerText"
+              size="small"
+              label="Volunteer Id"
+              required
+              variant="outlined"
+              value={volunteerId}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleVolanteerId(e)
+              }
+            />
+          </Grid>
 
           <Grid id="uomMail" item sx={{ width: "100%" }}>
             <TextField
@@ -357,6 +386,7 @@ const RegisterForm = () => {
             item
             sx={{
               width: "100%",
+              mt: 2,
             }}
           >
             <FormControl sx={styleSelect} size="small">
